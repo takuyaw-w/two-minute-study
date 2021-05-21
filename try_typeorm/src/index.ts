@@ -1,21 +1,57 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import {createConnection, getRepository, Repository} from "typeorm";
 import {User} from "./entity/User";
 
-createConnection().then(async connection => {
+const createUser = async (userRepository: Repository<User>) => {
+    console.log("create")
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+    await userRepository.insert({
+        firstName: "taro",
+        lastName: "yamada",
+        age: 22
+    });
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+    await userRepository.save({
+        firstName: "Saki",
+        lastName: "Suzuki",
+        age: 22
+    })
+}
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+const readUser = async (userRepository: Repository<User>) => {
+    const users = await userRepository.find()
+    console.log(users)
+    const user = await userRepository.findOne({firstName: "taro"})
+    console.log(user);
+}
 
-}).catch(error => console.log(error));
+const updateUser = async (userRepository: Repository<User>) => {
+    await userRepository.update({lastName: "Suzuki"}, {age: 25})
+
+    const userTaro = await userRepository.findOne({firstName: "taro"})
+    userTaro.age = 30
+    await userRepository.save(userTaro)
+
+    const users = await userRepository.find()
+    console.log(users)
+}
+
+const deleteUser = async (userRepository: Repository<User>) => {
+    const userTaro = await userRepository.findOne({firstName: "taro"})
+    await userRepository.remove(userTaro)
+
+    const users = await userRepository.find()
+    console.log(users)
+}
+
+(async () => {
+    const connection = await createConnection()
+
+    const userRepository = getRepository(User)
+    await createUser(userRepository)
+    await readUser(userRepository)
+    await updateUser(userRepository)
+    await deleteUser(userRepository)
+
+    await connection.close()
+})()
