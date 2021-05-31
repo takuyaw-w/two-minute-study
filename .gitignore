@@ -1,2 +1,4 @@
 try_express/basic/node_modules
 try_express/helloworld/node_modules
+try_fastify/quick/node_modules
+try_fastify/started_plugin/node_modules
