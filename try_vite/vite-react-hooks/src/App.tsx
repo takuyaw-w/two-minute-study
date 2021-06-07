@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 
 const App: React.FC = () => {
@@ -6,6 +6,10 @@ const App: React.FC = () => {
   const [count, setCount] = useState<number>(initialState)
   const [open, setOpen] = useState<boolean>(true)
   const toggle = () => setOpen(!open)
+
+  useEffect(() => {
+    console.log(count)
+  }, [count])
 
   return (
     <>
