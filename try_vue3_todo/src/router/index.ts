@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Todos from '@/views/todos.vue'
 import AddTodo from '@/views/AddTodo.vue'
+import EditTodo from '@/views/EditTodo.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/new',
     name: 'AddTodo',
     component: AddTodo
+  },
+  {
+    path: '/edit/:id',
+    name: 'EditTodo',
+    component: EditTodo
   }
 ]
 
