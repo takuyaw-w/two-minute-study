@@ -19,12 +19,19 @@
           <div>List</div>
         </header>
         <div id="list-main">
-          list main
+          <div
+            v-for="(item, index) in items"
+            :key="item.id"
+            @input="onInput($event, item)"
+            @keydown.tab.exact.prevent="onTab(item, index)"
+            contenteditable="true">
+            {{ item.value }}
+          </div>
         </div>
       </div>
       <div id="tree">
         <header id="tree-header">Tree</header>
-        <pre id="tree-main">tree main</pre>
+        <pre id="tree-main">{{ tree }}</pre>
       </div>
     </div>
   </main>

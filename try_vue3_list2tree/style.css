@@ -1,0 +1,50 @@
+body {
+  font-family: Consolas, meiryo;
+  font-size: 16px;
+  color: #35495e;
+}
+h1 {
+  text-align: center;
+}
+p#desc {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto 3em;
+}
+#app {
+  display: flex;
+  margin: 3em auto 0;
+}
+#list, #tree {
+  width: 50%;
+}
+#app header {
+  display: flex;
+  border-bottom: 1px dashed #f9f9f9;
+  font-size: 1.2em;
+  padding: 0.5em 20px 0.5em 20px;
+}
+#list {
+  background-color: #42b883;
+  margin: 0 1em 0 2em;
+}
+#list-main {
+  padding: 0.5em 1em 0.5em 20px;
+}
+#tree {
+  background-color: #35495e;
+  color: #fff;
+  margin: 0 2em 0 1em;
+}
+#tree-main {
+  padding: 0.5em 1em 0.5em 20px;
+  margin: 0;
+  font-family: Consolas;
+}
+div[contenteditable] {
+  display: list-item;
+  outline: none;
+}
+div[contenteditable]:focus {
+  border: 1px solid #35495e;
+}
