@@ -22,8 +22,14 @@
           <div
             v-for="(item, index) in items"
             :key="item.id"
+            :ref="el => {divs[item.id]=el}"
+            :style="{marginLeft: (item.indent * 20 + 20) + 'px'}"
             @input="onInput($event, item)"
             @keydown.tab.exact.prevent="onTab(item, index)"
+            @keydown.tab.shift.prevent="onTabShift(item, index)"
+            @keydown.up.prevent="onUp(index)"
+            @keydown.down.prevent="onDown(index)"
+            @keydown.enter.prevent="onEnter(item, index)"
             contenteditable="true">
             {{ item.value }}
           </div>
