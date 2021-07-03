@@ -56,6 +56,9 @@ Vue.createApp({
       }
       this.items.splice(index + 1, 0, newItem)
       this.counter++
+      this.$nextTick(function() {
+        this.selectItem(index + 1)
+      })
     }
   },
   computed: {
