@@ -75,7 +75,41 @@ Vue.createApp({
   },
   computed: {
     tree() {
-      return this.items.map(item => item.value + item.indent).join('\n')
+      let parents = [0]
+      let items = this.items;
+
+      for (let i = 1; i < items.length; i++) {
+        parents[items[i].indent] = i;
+        items[i].parent = parents[items[i].indent - 1];
+        items[items[i].parent].lastChild = i;
+      }
+
+      let prefix = ''
+      let lines = [items[0].value]
+
+      for (let i = 1; i < items.length; i++) {
+        let parentIndex = items[i].parent;
+
+        if (items[i].indent > 1) {
+          prefix = prefix.slice(0, (items[i].indent - 2) * 4);
+          if (items[items[parentIndex].parent].lastChild === parentIndex) {
+            prefix += '    '
+          } else {
+            prefix += '|   '
+          }
+        } else {
+          prefix = ''
+        }
+        lines[i] = prefix
+
+        if (items[parentIndex].lastChild === i) {
+          lines[i] += '└── '
+        } else {
+          lines[i] += '├── ';
+        }
+        lines[i] += items[i].value
+      }
+      return lines.join('\n')
     }
   }
 }).mount('#app')
