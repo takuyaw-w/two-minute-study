@@ -48,3 +48,7 @@ div[contenteditable] {
 div[contenteditable]:focus {
   border: 1px solid #35495e;
 }
+#delete {
+  margin-left: auto;
+  cursor: pointer;
+}

@@ -71,6 +71,13 @@ Vue.createApp({
       }
       this.items.splice(index, 1)
       this.getDiv(index - 1).focus()
+    },
+    deleteList() {
+      this.items = [
+        {id: 0, value: "root", indent: 0},
+        {id: 1, value: "item-1", indent: 1},
+      ]
+      this.counter = this.items.length
     }
   },
   computed: {
