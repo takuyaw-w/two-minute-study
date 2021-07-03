@@ -59,6 +59,18 @@ Vue.createApp({
       this.$nextTick(function() {
         this.selectItem(index + 1)
       })
+    },
+    onBackspace(item, index) {
+      if (index === 0) return;
+      if (item.value != '') return;
+      item.indent--;
+
+      for (let i = index + 1; i < this.items.length; i++) {
+        if (this.items[i -1].indent + 2 !== this.items[i].indent) break;
+        this.items[i].indent--;
+      }
+      this.items.splice(index, 1)
+      this.getDiv(index - 1).focus()
     }
   },
   computed: {

@@ -30,6 +30,7 @@
             @keydown.up.prevent="onUp(index)"
             @keydown.down.prevent="onDown(index)"
             @keydown.enter.prevent="onEnter(item, index)"
+            @keydown.backspace="onBackspace(item, index)"
             contenteditable="true">
             {{ item.value }}
           </div>
