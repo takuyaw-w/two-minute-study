@@ -1,14 +1,32 @@
 Vue.createApp({
   data() {
     return {
-      counter: 3,
-      items: [
-        { id: 0, value: "item-0", indent: 0},
-        { id: 1, value: "item-1", indent: 1},
-        { id: 2, value: "item-2", indent: 1},
-      ],
+      counter: 0,
+      items: [],
       divs: []
     }
+  },
+  created() {
+    this.items = [
+      { id: 0, value: "list2tree", indent: 0 },
+      { id: 1, value: "使い方", indent: 1 },
+      { id: 2, value: "クリックで、編集", indent: 2 },
+      { id: 3, value: "上下キーで、フォーカス移動", indent: 2 },
+      { id: 4, value: "Enter で、新規追加", indent: 2 },
+      { id: 5, value: "Tab / Shift+Tab で階層移動", indent: 2 },
+      { id: 6, value: "Backspace (空欄時) で削除", indent: 2 },
+      { id: 7, value: "How to", indent: 1 },
+      { id: 8, value: "Click to edit", indent: 2 },
+      { id: 9, value: "Up / Down to move focus", indent: 2 },
+      { id: 10, value: "Enter to add new item", indent: 2 },
+      { id: 11, value: "Tab / Shift+Tab to move right / left", indent: 2 },
+      { id: 12, value: "Backspace in empty item to delete", indent: 2 },
+    ]
+
+    this.counter = this.items.length
+    this.$nextTick(function() {
+      this.selectItem(0)
+    })
   },
   methods: {
     onInput(e, item) {
