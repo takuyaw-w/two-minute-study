@@ -5,16 +5,16 @@
       {{ valid }}
       <p>
         <label for="password">Current Password</label>
-        <ValidationProvider v-slot="{ errors, valid }" name="パスワード" rules="min:8|required">
-        <input id="password" v-model="password" />
+        <ValidationProvider v-slot="{ errors, valid }" name="パスワード" rules="required|confirmed:conf">
+        <input id="password" type="password" v-model="password" />
         {{ errors }}
         {{ valid }}
         </ValidationProvider>
       </p>
       <p>
         <label for="new_password">New Password</label>
-        <ValidationProvider v-slot="{ errors, valid }" name="新しいパスワード" rules="min:8|required">
-        <input id="new_password" v-model="new_password" />
+        <ValidationProvider v-slot="{ errors, valid }" vid="conf" rules="required">
+        <input id="new_password" ref="confirm" type="password" v-model="new_password" />
         {{ errors }}
         {{ valid }}
         </ValidationProvider>
