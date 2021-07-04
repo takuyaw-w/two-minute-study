@@ -1,27 +1,20 @@
 <template>
   <div id="app">
-    <ValidationObserver ref="observer" v-slot="{ invalid, handleSubmit }">
+    <ValidationObserver ref="observer" v-slot="{ valid, invalid, handleSubmit }">
     <form @submit.prevent="handleSubmit(onSubmit)">
+      {{ valid }}
       <p>
-        <label for="curPasswd">Current Password</label>
-        <ValidationProvider v-slot="{ errors, valid }" name="現在のパスワード" rules="min:8|required">
-        <input id="curPasswd" v-model="currentPassword" />
+        <label for="password">Current Password</label>
+        <ValidationProvider v-slot="{ errors, valid }" name="パスワード" rules="min:8|required">
+        <input id="password" v-model="password" />
         {{ errors }}
         {{ valid }}
         </ValidationProvider>
       </p>
       <p>
-        <label for="newPasswd">New Password</label>
+        <label for="new_password">New Password</label>
         <ValidationProvider v-slot="{ errors, valid }" name="新しいパスワード" rules="min:8|required">
-        <input id="newPasswd" name="newPassword" v-model="newPassword" />
-        {{ errors }}
-        {{ valid }}
-        </ValidationProvider>
-      </p>
-      <p>
-        <label for="confirmPasswd">confirm Password</label>
-        <ValidationProvider v-slot="{ errors, valid }" name="確認用パスワード" rules="min:8|required|confirmed:newPassword">
-        <input id="confirmPasswd" v-model="confirmPassword" data-vv-as="password" />
+        <input id="new_password" v-model="new_password" />
         {{ errors }}
         {{ valid }}
         </ValidationProvider>
@@ -48,9 +41,8 @@ export default {
   },
   data() {
     return {
-      currentPassword: null,
-      newPassword: null,
-      confirmPassword: null
+      password: null,
+      new_password: null
     }
   },
   methods: {
