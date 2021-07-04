@@ -5,7 +5,7 @@
       {{ valid }}
       <p>
         <label for="password">Current Password</label>
-        <ValidationProvider v-slot="{ errors, valid }" name="パスワード" rules="required|confirmed:conf">
+        <ValidationProvider v-slot="{ errors, valid }" name="パスワード" rules="required|confirmed:hidden">
         <input id="password" type="password" v-model="password" />
         {{ errors }}
         {{ valid }}
@@ -15,6 +15,14 @@
         <label for="new_password">New Password</label>
         <ValidationProvider v-slot="{ errors, valid }" vid="conf" rules="required">
         <input id="new_password" ref="confirm" type="password" v-model="new_password" />
+        {{ errors }}
+        {{ valid }}
+        </ValidationProvider>
+      </p>
+      <p>
+        <label for="hidden_password">New Password</label>
+        <ValidationProvider v-slot="{ errors, valid }" vid="hidden" rules="required">
+        <input id="hidden_password" ref="hidden" type="hidden" v-model="hidden_password" />
         {{ errors }}
         {{ valid }}
         </ValidationProvider>
@@ -42,7 +50,8 @@ export default {
   data() {
     return {
       password: null,
-      new_password: null
+      new_password: null,
+      hidden_password: "abcdefg"
     }
   },
   methods: {
