@@ -73,5 +73,5 @@ input[type="number"]::-webkit-inner-spin-button {
     @focus="changeInputType"
     @blur="changeInputType"
     @keydown="onKeydown"
-  >
+  />
 </template>
