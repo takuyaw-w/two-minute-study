@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <my-input v-model="val" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import MyInput from "./components/MyInput.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MyInput
+  },
+  data() {
+    return {
+      val: ""
+    }
   }
 }
 </script>
