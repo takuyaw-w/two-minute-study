@@ -1,0 +1,11 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.suggest.imports.hosts": {
+    "https://cdn": false,
+    "https://cdn.skypack.dev": false,
+    "https://deno": false,
+    "https://deno.land": true
+}
+}
