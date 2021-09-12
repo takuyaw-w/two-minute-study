@@ -1,56 +1,46 @@
-import { parse } from "https://deno.land/std@0.106.0/flags/mod.ts";
-import { filterKeys } from "https://deno.land/std@0.106.0/collections/filter_keys.ts";
+import { Table } from "./deps.ts";
+import { filterKeys } from "./deps.ts";
+
+export interface VersionResponse {
+  "std": string[];
+  "cli": string[];
+  "cli_to_std": Record<string, string>;
+}
+const _DENO_VERSION = Deno.version.deno;
 
 const targetUrl =
   "https://raw.githubusercontent.com/denoland/deno_website2/main/versions.json";
 
-  function versionList(match: boolean) {
-  fetch(targetUrl)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log("cli\t\t|std");
-      if (match) {
-        const denoVersion = Deno.version.deno;
-        const matchVersions = filterKeys(
-          res.cli_to_std,
-          (key) => key.replaceAll("v", "") === denoVersion,
-        );
-        for (const [key, value] of Object.entries(matchVersions)) {
-          if (key.length >= 10) {
-            console.log(`${key}\t|${value}`);
-          } else {
-            console.log(`${key}\t\t|${value}`);
-          }
-        }
-      } else {
-        for (const [key, value] of Object.entries(res.cli_to_std)) {
-          if (key.length >= 10) {
-            console.log(`${key}\t|${value}`);
-          } else {
-            console.log(`${key}\t\t|${value}`);
-          }
-        }
-      }
-    });
-}
+export const versionList = async (): Promise<void> => {
+  const versions = await fetchVersion();
+  const data = Object.entries(versions.cli_to_std);
+  new Table()
+    .header(["cli", "std"])
+    .body(data)
+    .padding(1)
+    .indent(2)
+    .border(true)
+    .render();
+};
 
-const {
-  m,
-  h,
-} = parse(Deno.args);
+export const matchVersion = async (): Promise<void> => {
+  const versions = await fetchVersion();
+  const matchVersions = filterKeys(
+    versions.cli_to_std,
+    (key) => key.replaceAll("v", "") === _DENO_VERSION,
+  );
+  const data = Object.entries(matchVersions);
+  new Table()
+    .header(["cli", "std"])
+    .body(data)
+    .padding(1)
+    .indent(2)
+    .border(true)
+    .render();
+};
 
-if (h) {
-  const msg = `deno-versions
-    Lists the version information of Deno.
-
-    USAGE
-      denolist [dirname] : Show the list.
-    OPTIONS
-      m     : Show matching versions
-      h     : Show this help message
-    `;
-  console.log(msg);
-  Deno.exit(0);
-}
-
-console.log(versionList(m));
+const fetchVersion = async (): Promise<VersionResponse> => {
+  const data = await fetch(targetUrl);
+  const versions = await data.json();
+  return versions;
+};
